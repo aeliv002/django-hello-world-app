@@ -2,7 +2,7 @@ import textwrap
 
 from django.http import HttpResponse
 from django.views.generic.base import View
-
+from django.http import JsonResponse
 
 class HomePageView(View):
 
@@ -19,3 +19,6 @@ class HomePageView(View):
             </html>
         ''')
         return HttpResponse(response_text)
+
+def healthCheck(request):
+    return JsonResponse({'status':'ok'})
