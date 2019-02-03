@@ -2,3 +2,4 @@ Django
 gunicorn
 postgres
 django-widget-tweaks
+django_tables2

@@ -6,6 +6,10 @@ from django.urls import reverse_lazy, reverse
 
 from django.views import generic
 from .models import City
+from .tables import CityTable
+
+from django_tables2 import RequestConfig
+from django.shortcuts import render
 
 class HomePageView(generic.View):
 
@@ -42,3 +46,9 @@ class MyCreateView(generic.CreateView):
 
 class CreateCity (MyCreateView):
     model = City
+    success_url = reverse_lazy('cities')
+
+def ListCities(request):
+    table = CityTable(City.objects.all())
+    RequestConfig(request).configure(table)
+    return render(request, 'city_table.html', {'table': table})
