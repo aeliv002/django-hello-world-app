@@ -1,0 +1,43 @@
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<form method="post" action="{{request.path}}" class="form-group frm-for-adding">
+  {% csrf_token %}
+
+    <div class="modal-body">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {% if field.field.widget.input_type == "text" %}
+              {% render_field field class="form-control" %}
+          {% elif field.field.widget.input_type == "select" %}
+              {{ field }}
+
+              {% block addcolumns %}
+
+              {% endblock %}
+
+
+
+
+
+          {% else %}
+              {{ field }}
+          {% endif %}
+
+
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+        </div>
+        {% endfor %}
+
+          <input type="submit" value="Submit" class="btn btn-primary">
+          <!-- <input type="submit" formnovalidate name="cancel" value="Cancel" class="btn btn-secondary"/> -->
+    </div>
+</form>
+
+{% endblock %}
